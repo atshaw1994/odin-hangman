@@ -85,14 +85,15 @@ def print_image
 end
 
 def check_letter(user_guess)
-  while @incorrect_guesses.include?(user_guess) or @board.include?(user_guess)
+  user_guess = user_guess.downcase
+  while @incorrect_guesses.include?(user_guess) || @board.include?(user_guess)
     puts "That has already been guessed."
     print "Enter another letter: "
     user_guess = gets.chomp
   end
   if @secret_word.include?(user_guess)
     (@secret_word.length).times do |i|
-      if @secret_word[i] == user_guess
+      if @secret_word[i].downcase == user_guess
         @board[i] = user_guess
       end
     end
