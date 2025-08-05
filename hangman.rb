@@ -2,22 +2,26 @@
 @secret_word = "" # ex. "cat"
 @board = [] # ex. ["_", "_", "_"] for "cat"
 @incorrect_guesses = []
-@secret_word = []
-@board = []
 
 def initialize_game
-  random = Random.new
-  @secret_word = @dictionary[random.rand(@dictionary.length)]
+  valid_words = @dictionary.select { |word| word.length.between?(5, 12) }
+  @secret_word = valid_words.sample
+  if @secret_word.nil?
+    puts "Error: No valid words between 5 and 12 characters found in the dictionary."
+    exit
+  end
   @board = Array.new(@secret_word.length, "_")
   @incorrect_guesses = []
 end
 
 def announce_win
   puts "You Won!"
+  puts "The secret word was: " + @secret_word
 end
 
 def announce_loss
   puts "You Lost."
+  puts "The secret word was: " + @secret_word
 end
 
 def print_board
@@ -76,7 +80,6 @@ def print_image
     puts "|    -|-"
     puts "|     |"
     puts "|    / \\"
-    announce_loss()
   end
   puts "--------"
 end
