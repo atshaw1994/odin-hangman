@@ -89,7 +89,7 @@ def check_letter(user_guess)
   while @incorrect_guesses.include?(user_guess) || @board.include?(user_guess)
     puts "That has already been guessed."
     print "Enter another letter: "
-    user_guess = gets.chomp
+    user_guess = gets.chomp.downcase
   end
   if @secret_word.include?(user_guess)
     (@secret_word.length).times do |i|
